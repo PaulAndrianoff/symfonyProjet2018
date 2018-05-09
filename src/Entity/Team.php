@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -38,9 +40,20 @@ class Team
     private $price;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToMany(targetEntity="App\Entity\user", inversedBy="teams")
      */
     private $admin_id;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\TeamParticipants", mappedBy="team_id")
+     */
+    private $teamParticipants;
+
+    public function __construct()
+    {
+        $this->admin_id = new ArrayCollection();
+        $this->teamParticipants = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -95,15 +108,61 @@ class Team
         return $this;
     }
 
-    public function getAdminId(): ?int
+    /**
+     * @return Collection|user[]
+     */
+    public function getAdminId(): Collection
     {
         return $this->admin_id;
     }
 
-    public function setAdminId(int $admin_id): self
+    public function addAdminId(user $adminId): self
     {
-        $this->admin_id = $admin_id;
+        if (!$this->admin_id->contains($adminId)) {
+            $this->admin_id[] = $adminId;
+        }
 
         return $this;
     }
+
+    public function removeAdminId(user $adminId): self
+    {
+        if ($this->admin_id->contains($adminId)) {
+            $this->admin_id->removeElement($adminId);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TeamParticipants[]
+     */
+    public function getTeamParticipants(): Collection
+    {
+        return $this->teamParticipants;
+    }
+
+    public function addTeamParticipant(TeamParticipants $teamParticipant): self
+    {
+        if (!$this->teamParticipants->contains($teamParticipant)) {
+            $this->teamParticipants[] = $teamParticipant;
+            $teamParticipant->setTeamId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTeamParticipant(TeamParticipants $teamParticipant): self
+    {
+        if ($this->teamParticipants->contains($teamParticipant)) {
+            $this->teamParticipants->removeElement($teamParticipant);
+            // set the owning side to null (unless already changed)
+            if ($teamParticipant->getTeamId() === $this) {
+                $teamParticipant->setTeamId(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

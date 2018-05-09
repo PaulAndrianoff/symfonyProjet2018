@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,6 +37,22 @@ class User
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $avatar_img_url;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Team", mappedBy="admin_id")
+     */
+    private $teams;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\TeamParticipants", mappedBy="user_id")
+     */
+    private $teamParticipants;
+
+    public function __construct()
+    {
+        $this->teams = new ArrayCollection();
+        $this->teamParticipants = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -85,6 +103,65 @@ class User
     public function setAvatarImgUrl(?string $avatar_img_url): self
     {
         $this->avatar_img_url = $avatar_img_url;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Team[]
+     */
+    public function getTeams(): Collection
+    {
+        return $this->teams;
+    }
+
+    public function addTeam(Team $team): self
+    {
+        if (!$this->teams->contains($team)) {
+            $this->teams[] = $team;
+            $team->addAdminId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTeam(Team $team): self
+    {
+        if ($this->teams->contains($team)) {
+            $this->teams->removeElement($team);
+            $team->removeAdminId($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TeamParticipants[]
+     */
+    public function getTeamParticipants(): Collection
+    {
+        return $this->teamParticipants;
+    }
+
+    public function addTeamParticipant(TeamParticipants $teamParticipant): self
+    {
+        if (!$this->teamParticipants->contains($teamParticipant)) {
+            $this->teamParticipants[] = $teamParticipant;
+            $teamParticipant->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTeamParticipant(TeamParticipants $teamParticipant): self
+    {
+        if ($this->teamParticipants->contains($teamParticipant)) {
+            $this->teamParticipants->removeElement($teamParticipant);
+            // set the owning side to null (unless already changed)
+            if ($teamParticipant->getUserId() === $this) {
+                $teamParticipant->setUserId(null);
+            }
+        }
 
         return $this;
     }

@@ -17,12 +17,12 @@ class TeamParticipants
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Team", inversedBy="teamParticipants")
      */
     private $team_id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="teamParticipants")
      */
     private $user_id;
 
@@ -31,27 +31,28 @@ class TeamParticipants
         return $this->id;
     }
 
-    public function getTeamId(): ?int
+    public function getTeamId(): ?Team
     {
         return $this->team_id;
     }
 
-    public function setTeamId(int $team_id): self
+    public function setTeamId(?Team $team_id): self
     {
         $this->team_id = $team_id;
 
         return $this;
     }
 
-    public function getUserId(): ?int
+    public function getUserId(): ?User
     {
         return $this->user_id;
     }
 
-    public function setUserId(int $user_id): self
+    public function setUserId(?User $user_id): self
     {
         $this->user_id = $user_id;
 
         return $this;
     }
+
 }
