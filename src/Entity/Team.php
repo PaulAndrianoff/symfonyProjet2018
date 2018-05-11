@@ -26,36 +26,47 @@ class Team
     /**
      * @ORM\Column(type="datetime")
      */
-    private $end_at;
+    private $draw_at;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $draw_at;
+    private $end_at;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $fixe_price;
+    private $price_min;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $price_max;
 
     /**
      * @ORM\Column(type="string", length=150)
      */
-    private $admin_email;
+    private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $admin_password;
+    private $team_code;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Participant", mappedBy="team_id", orphanRemoval=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="teams")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $participants;
+    private $admin_id;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\TeamParticipant", mappedBy="team_id", orphanRemoval=true)
+     */
+    private $teamParticipants;
 
     public function __construct()
     {
-        $this->participants = new ArrayCollection();
+        $this->teamParticipants = new ArrayCollection();
     }
 
     public function getId()
@@ -63,26 +74,14 @@ class Team
         return $this->id;
     }
 
-    public function getcreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->created_at;
     }
 
-    public function setcreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
-
-        return $this;
-    }
-
-    public function getEndAt(): ?\DateTimeInterface
-    {
-        return $this->end_at;
-    }
-
-    public function setEndAt(\DateTimeInterface $end_at): self
-    {
-        $this->end_at = $end_at;
 
         return $this;
     }
@@ -99,67 +98,103 @@ class Team
         return $this;
     }
 
-    public function getFixePrice(): ?int
+    public function getEndAt(): ?\DateTimeInterface
     {
-        return $this->fixe_price;
+        return $this->end_at;
     }
 
-    public function setFixePrice(int $fixe_price): self
+    public function setEndAt(\DateTimeInterface $end_at): self
     {
-        $this->fixe_price = $fixe_price;
+        $this->end_at = $end_at;
 
         return $this;
     }
 
-    public function getAdminEmail(): ?string
+    public function getPriceMin(): ?int
     {
-        return $this->admin_email;
+        return $this->price_min;
     }
 
-    public function setAdminEmail(string $admin_email): self
+    public function setPriceMin(int $price_min): self
     {
-        $this->admin_email = $admin_email;
+        $this->price_min = $price_min;
 
         return $this;
     }
 
-    public function getAdminPassword(): ?string
+    public function getPriceMax(): ?int
     {
-        return $this->admin_password;
+        return $this->price_max;
     }
 
-    public function setAdminPassword(string $admin_password): self
+    public function setPriceMax(int $price_max): self
     {
-        $this->admin_password = $admin_password;
+        $this->price_max = $price_max;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getTeamCode(): ?string
+    {
+        return $this->team_code;
+    }
+
+    public function setTeamCode(string $team_code): self
+    {
+        $this->team_code = $team_code;
+
+        return $this;
+    }
+
+    public function getAdminId(): ?User
+    {
+        return $this->admin_id;
+    }
+
+    public function setAdminId(?User $admin_id): self
+    {
+        $this->admin_id = $admin_id;
 
         return $this;
     }
 
     /**
-     * @return Collection|Participant[]
+     * @return Collection|TeamParticipant[]
      */
-    public function getParticipants(): Collection
+    public function getTeamParticipants(): Collection
     {
-        return $this->participants;
+        return $this->teamParticipants;
     }
 
-    public function addParticipant(Participant $participant): self
+    public function addTeamParticipant(TeamParticipant $teamParticipant): self
     {
-        if (!$this->participants->contains($participant)) {
-            $this->participants[] = $participant;
-            $participant->setTeamId($this);
+        if (!$this->teamParticipants->contains($teamParticipant)) {
+            $this->teamParticipants[] = $teamParticipant;
+            $teamParticipant->setTeamId($this);
         }
 
         return $this;
     }
 
-    public function removeParticipant(Participant $participant): self
+    public function removeTeamParticipant(TeamParticipant $teamParticipant): self
     {
-        if ($this->participants->contains($participant)) {
-            $this->participants->removeElement($participant);
+        if ($this->teamParticipants->contains($teamParticipant)) {
+            $this->teamParticipants->removeElement($teamParticipant);
             // set the owning side to null (unless already changed)
-            if ($participant->getTeamId() === $this) {
-                $participant->setTeamId(null);
+            if ($teamParticipant->getTeamId() === $this) {
+                $teamParticipant->setTeamId(null);
             }
         }
 
@@ -167,6 +202,6 @@ class Team
     }
 
     public function __toString() {
-        return (string) $this->id;
+        return (string) $this->name;
     }
 }

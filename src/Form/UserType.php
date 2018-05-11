@@ -2,27 +2,27 @@
 
 namespace App\Form;
 
-use App\Entity\Participant;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ParticipantType extends AbstractType
+class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('name')
             ->add('email')
-            ->add('pseudo')
-            ->add('avatar')
-            ->add('team_id')
+            ->add('password')
+            ->add('category_id')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Participant::class,
+            'data_class' => User::class,
         ]);
     }
 }

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TeamParticipant index{% endblock %}
+
+{% block body %}
+    <h1>TeamParticipant index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for team_participant in team_participants %}
+            <tr>
+                <td>{{ team_participant.id }}</td>
+                <td>
+                    <a href="{{ path('team_participant_show', {'id': team_participant.id}) }}">show</a>
+                    <a href="{{ path('team_participant_edit', {'id': team_participant.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('team_participant_new') }}">Create new</a>
+{% endblock %}

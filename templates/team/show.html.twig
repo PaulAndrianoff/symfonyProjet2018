@@ -16,24 +16,28 @@
                 <td>{{ team.created_at ? team.created_at|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>End_at</th>
-                <td>{{ team.end_at ? team.end_at|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
                 <th>Draw_at</th>
                 <td>{{ team.draw_at ? team.draw_at|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>Fixe_price</th>
-                <td>{{ team.fixe_price }}</td>
+                <th>End_at</th>
+                <td>{{ team.end_at ? team.end_at|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>Admin_email</th>
-                <td>{{ team.admin_email }}</td>
+                <th>Price_min</th>
+                <td>{{ team.price_min }}</td>
             </tr>
             <tr>
-                <th>Admin_password</th>
-                <td>{{ team.admin_password }}</td>
+                <th>Price_max</th>
+                <td>{{ team.price_max }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ team.name }}</td>
+            </tr>
+            <tr>
+                <th>Team_code</th>
+                <td>{{ team.team_code }}</td>
             </tr>
         </tbody>
     </table>
