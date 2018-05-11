@@ -13,10 +13,11 @@ class TeamType extends AbstractType
     {
         $builder
             ->add('created_at')
-            ->add('draw_at')
             ->add('end_at')
-            ->add('price')
-            ->add('admin_id')
+            ->add('draw_at')
+            ->add('fixe_price')
+            ->add('admin_email')
+            ->add('admin_password')
         ;
     }
 

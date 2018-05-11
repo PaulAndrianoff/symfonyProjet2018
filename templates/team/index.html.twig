@@ -10,10 +10,11 @@
             <tr>
                 <th>Id</th>
                 <th>Created_at</th>
-                <th>Draw_at</th>
                 <th>End_at</th>
-                <th>Price</th>
-                <th>Admin_id</th>
+                <th>Draw_at</th>
+                <th>Fixe_price</th>
+                <th>Admin_email</th>
+                <th>Admin_password</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -22,10 +23,11 @@
             <tr>
                 <td>{{ team.id }}</td>
                 <td>{{ team.created_at ? team.created_at|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ team.draw_at ? team.draw_at|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ team.end_at ? team.end_at|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ team.price }}</td>
-                <td>{{ team.admin_id }}</td>
+                <td>{{ team.draw_at ? team.draw_at|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ team.fixe_price }}</td>
+                <td>{{ team.admin_email }}</td>
+                <td>{{ team.admin_password }}</td>
                 <td>
                     <a href="{{ path('team_show', {'id': team.id}) }}">show</a>
                     <a href="{{ path('team_edit', {'id': team.id}) }}">edit</a>
@@ -33,7 +35,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="8">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
