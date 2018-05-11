@@ -63,72 +63,72 @@ class Team
         return $this->id;
     }
 
-    public function getcreated_at(): ?\DateTimeInterface
+    public function getcreatedAt(): ?\DateTimeInterface
     {
         return $this->created_at;
     }
 
-    public function setcreated_at(\DateTimeInterface $created_at): self
+    public function setcreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
 
         return $this;
     }
 
-    public function getEnd_At(): ?\DateTimeInterface
+    public function getEndAt(): ?\DateTimeInterface
     {
         return $this->end_at;
     }
 
-    public function setEnd_At(\DateTimeInterface $end_at): self
+    public function setEndAt(\DateTimeInterface $end_at): self
     {
         $this->end_at = $end_at;
 
         return $this;
     }
 
-    public function getDraw_At(): ?\DateTimeInterface
+    public function getDrawAt(): ?\DateTimeInterface
     {
         return $this->draw_at;
     }
 
-    public function setDraw_At(\DateTimeInterface $draw_at): self
+    public function setDrawAt(\DateTimeInterface $draw_at): self
     {
         $this->draw_at = $draw_at;
 
         return $this;
     }
 
-    public function getFixe_Price(): ?int
+    public function getFixePrice(): ?int
     {
         return $this->fixe_price;
     }
 
-    public function setFixe_Price(int $fixe_price): self
+    public function setFixePrice(int $fixe_price): self
     {
         $this->fixe_price = $fixe_price;
 
         return $this;
     }
 
-    public function getAdmin_Email(): ?string
+    public function getAdminEmail(): ?string
     {
         return $this->admin_email;
     }
 
-    public function setAdmin_Email(string $admin_email): self
+    public function setAdminEmail(string $admin_email): self
     {
         $this->admin_email = $admin_email;
 
         return $this;
     }
 
-    public function getAdmin_Password(): ?string
+    public function getAdminPassword(): ?string
     {
         return $this->admin_password;
     }
 
-    public function setAdmin_Password(string $admin_password): self
+    public function setAdminPassword(string $admin_password): self
     {
         $this->admin_password = $admin_password;
 
