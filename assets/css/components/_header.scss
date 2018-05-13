@@ -1,0 +1,30 @@
+.main-header {
+  color: $light-grey;
+  padding: $normal-space 0;
+  border-bottom: solid 1px $light-grey;
+}
+
+.main-header__wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-header__links {
+  display: flex;
+  flex-direction: row;
+  flex: 2;
+  li {
+    margin-right: $small-space;
+    &.current {
+      color: $main-red;
+    }
+  }
+}
+
+.main-header__logo {
+  flex: 1;
+  text-align: right;
+  color: $dark-grey;
+}

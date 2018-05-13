@@ -1,0 +1,40 @@
+.homepage {
+  height: calc(100vh - 105px);
+}
+
+.homepage__wrapper {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.homepage__createTeam {
+  flex: 1;
+  text-align: center;
+  padding-top: $large-space;
+  border-right: solid 1px $light-grey;
+  h3 {
+    margin-top: $normal-space;
+  }
+  p {
+    margin-top: $small-space;
+  }
+  .btn {
+    margin-top: $normal-space;
+  }
+}
+
+.homepage__joinTeam {
+  flex: 1;
+  text-align: center;
+  padding-top: $large-space;
+  form {
+    margin-top: $large-space;
+    .inputField {
+      margin: auto;
+    }
+    .btn {
+      margin-top: $normal-space;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+input.inputField {
+  display: block;
+  border: solid 1px #cccccc80;
+  background-color: #FEFEFE;
+  height: 50px;
+  padding: 2rem;
+  min-width: 30rem;
+  color: $dark-grey;
+  box-shadow: 0px 1px 10px 0px #cccccc80;
+}
+
+input::placeholder {
+  color: $light-grey
+}
